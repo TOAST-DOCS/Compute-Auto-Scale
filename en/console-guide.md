@@ -73,9 +73,13 @@ Below are required to create an instance template:
   </tr>
 </table>
 
-> [Note] Additional disks can be used after mounted by a user script. Regarding the mounting procedure using user scripts, refer to [Block Storage Guide](/Storage/Block%20Storage/en/overview/#_2).<br>
+> [Note]
+> Additional disks can be used after mounted by a user script. Regarding the mounting procedure using user scripts, refer to [Block Storage Guide](/Storage/Block%20Storage/en/overview/#_2).
 
-> [Caution] An instance template, once created, cannot be modified.
+<br/>
+
+> [Caution]
+> An instance template, once created, cannot be modified.
 
 ## Scaling Groups
 ### View List of Scaling Groups
@@ -177,7 +181,8 @@ Items as follows are required to create a scheduled task:
 | Start Time | Activation time for a scheduled task <br>When `Repeat`is set once, task shall be executed on start time <br>When Cron expression is selected for`Repeat`, scheduled tasks are executed on a regular basis from the start time. |
 | End Time | Closing time for a scheduled task <br>Activated when Cron expression is selected for `Repeat` |
 
-> [Note] The Cron Expression is applied to show execution time/cycle of a scheduled task.
+> [Note]
+> The Cron Expression is applied to show execution time/cycle of a scheduled task.
 >
 > The Cron expression is comprised of five items, each of which is divided by space characters and it means as follows:   
 >
@@ -211,12 +216,14 @@ Items as follows are required to create a scheduled task:
 > `0 9 25W * *`: Executes at 09:00 on a closest weekday from the 25th day of every month <br>
 > `0 9 * * 3#2`: Executes at 09:00 on the second Thursday of every month <br>
 
-> [Caution] Start time of a scheduled task can be specified only after three minutes from the current time. If a scaling group is now changing, scheduled task may be delayed.
+> [Caution]
+> Start time of a scheduled task can be specified only after three minutes from the current time. If a scaling group is now changing, scheduled task may be delayed.
 
 ### View List of Created Instances
 Select a scaling group from the list and check the list of created instances.
 
-> [Caution] Instances that a scaling group created are also exposed on the list of instance products. However, user cannot control them.  
+> [Caution]
+> Instances that a scaling group created are also exposed on the list of instance products. However, user cannot control them.  
 
 ### View Statistical Graphs
 Select a scaling group from the list and check its statistical graph.
