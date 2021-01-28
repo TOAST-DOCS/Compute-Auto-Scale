@@ -55,7 +55,7 @@ Below are required to create an instance template:
     <td>Network to connect with an instance to be created. <br> Can connect up to 4, and the order is important.<br> The first network serves as the default gateway address </td>
   </tr>
   <tr>
-    <td rowspan="5">Additional Information </td>
+    <td rowspan="4">Additional Information </td>
     <td>Floating IP</td>
     <td>Whether to assign a floating IP to an instance which is to be created </td>
   </tr>
@@ -71,21 +71,10 @@ Below are required to create an instance template:
     <td>User Script </td>
     <td>Script to execute immediately after booting on an instance to be created <br> Allows up to 65535 characters in English </td>
   </tr>
-  <tr>
-    <td>Deploy 사용</td>
-    <td>Deploy 서비스 연계 기능 사용 여부</td>
-  </tr>    
 </table>
 
 > [Note]
 > Additional disks can be used after mounted by a user script. Regarding the mounting procedure using user scripts, refer to [Block Storage Guide](/Storage/Block%20Storage/en/overview/#_2).
-
-<br/>
-
-> [참고]
-> Deploy 사용을 선택한 인스턴스 템플릿으로 스케일링 그룹을 생성하면 증설 시 자동으로 애플리케이션을 배포하도록 Deploy 서비스에 등록할 수 있습니다. 자세한 내용은 [Deploy 가이드](/Dev%20Tool/Deploy/en/console-guide/)를 참고하세요.
->
-> Deploy 사용 기능은 2020년 11월 현재 한국(판교), 한국(평촌), 일본(도쿄) 리전에서만 제공됩니다.
 
 <br/>
 
@@ -163,18 +152,6 @@ Following items can be defined in a scaling group.
     <td>The load balancer that a created instance is to be connected with.  </td>
   </tr>
 </table>
-
-### 로드 밸런서 변경
-스케일링 그룹에 로드 밸런서를 연결하거나, 연결된 로드 밸런서를 제거, 교체할 수 있습니다. 연결할 로드 밸런서는 미리 생성되어 있어야 합니다.
-
-> [참고]
-> 이미 연결된 로드 밸런서에 리스너를 추가해도, 현재 스케일링 그룹의 인스턴스들이 자동으로 새 리스너에 연결되지는 않습니다.
-> 새 리스너에 연결해야 한다면 로드 밸런서 연결을 해제했다가 다시 연결해야 합니다.
-
-<br/>
-
-> [주의]
-> 로드 밸런서를 변경하면 현재 인스턴스는 삭제되고 새로운 인스턴스가 생성됩니다.
 
 ### View Details and Modify
 Select a scaling group from the list of scaling groups and check its details.
