@@ -153,6 +153,15 @@ Following items can be defined in a scaling group.
   </tr>
 </table>
 
+### Stop scaling group
+
+Selects a desired scaling group from the scaling group list and pauses it. The paused scaling group can be restarted using the 'Start Scaling Group' button.
+
+> [Note]
+> The status of a paused scaling group is displayed in yellow.
+> All control features including controlling the number of instances, changing scaling group policy, changing load balancer, creating scheduled tasks are limited for a paused scaling group.
+> As the affiliated instances stop, statistics graphs are unavailable.
+
 ### View Details and Modify
 Select a scaling group from the list of scaling groups and check its details.
 
