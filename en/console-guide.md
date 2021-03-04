@@ -78,6 +78,11 @@ Below are required to create an instance template:
 
 <br/>
 
+> [Note]
+> Creating a scaling group with a Deploy-enabled instance template allows users to register the group to the Deploy service so the applications can be automatically deployed when scaling. For details, refer to [Deploy Guide](/Dev%20Tool/Deploy/ko/console-guide/).
+
+<br/>
+
 > [Caution]
 > An instance template, once created, cannot be modified.
 
