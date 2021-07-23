@@ -57,7 +57,7 @@ As such, without a cooldown period, instances may be abruptly increased or decre
 The auto healing policy is automatically configured without extra setting, when a scaling group is created. If performance indicators of an instance fail to be collected for three minutes, it is considered a failure, and the instance is deleted and replaced by a new instance. Auto recovery runs regardless of the cooldown.
 
 ### Load Balancer
-Specifies a load balancer to connect after an instance is created. With a scale-out policy, created instances are connected to a designated load balancer. As newly-added instances naturally share loads by load balancer, they can be immediately put into services.
+With auto restoration policies, when an individual instance fails, it is deleted and a new one is created to replace it. If the performance indicator of an individual instance is not collected for 3 minutes, it is determined as an error and automatic restoration will proceed. Automatic restoration operates regardless of the wait time for reuse.
 
 > [Note] The actual implementation timing of an instance for service is after response to load balancer's status check is normally provided, when booting is completed and user service operates properly.
 
