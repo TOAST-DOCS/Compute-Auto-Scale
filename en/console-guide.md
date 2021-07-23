@@ -2,7 +2,7 @@
 
 ## Instance Templates
 ### Creating Instance Templates
-There must be an instance template to make a scaling group. The instance template pre-defines the component information of individual instance constituting the scaling group. See [Instance Template Console Guide](/Compute/Intance%20Template/en/console-guide/) for details.
+There must be an instance template to make a scaling group. The instance template pre-defines the component information of individual instance constituting the scaling group. See [Instance Template Console Guide](/Compute/Instance%20Template/en/console-guide/) for details.
 
 ## Scaling Groups
 ### View List of Scaling Groups
@@ -97,7 +97,7 @@ Following items can be defined in a scaling group.
 
 > [Notes]
 > Enabling the Deploy linkage option when creating scaling groups allows users to use the Deploy service to automatically deploy their applications as new instances are created.
-> For more information, see [Deploy Guide](/Dev%20Tool/Deploy/en/console-guide/).
+> For more information, see [Deploy Guide](/Dev%20Tools/Deploy/en/console-guide/).
 > Deploy linkage feature is currently provided only in Korea (Pangyo, Pyeongchon) and Japan(Tokyo) regions as of July, 2021.
 
 
