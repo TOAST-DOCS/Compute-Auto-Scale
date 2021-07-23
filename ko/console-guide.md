@@ -6,7 +6,7 @@
 
 ## 인스턴스 템플릿
 ### 인스턴스 템플릿 생성
-스케일링 그룹(Scaling Group)을 만들려면 인스턴스 템플릿(Instance Template)이 있어야 합니다. 인스턴스 템플릿은 스케일링 그룹을 구성하는 개별 인스턴스의 구성 요소 정보를 미리 정의합니다. 자세한 내용은 [인스턴스 템플릿 콘솔 가이드](/Compute/Intance%20Template/ko/console-guide/)를 참고하세요.
+스케일링 그룹(Scaling Group)을 만들려면 인스턴스 템플릿(Instance Template)이 있어야 합니다. 인스턴스 템플릿은 스케일링 그룹을 구성하는 개별 인스턴스의 구성 요소 정보를 미리 정의합니다. 자세한 내용은 [인스턴스 템플릿 콘솔 가이드](/Compute/Instance%20Template/ko/console-guide/)를 참고하세요.
 
 ## 스케일링 그룹
 ### 스케일링 그룹 목록 보기
@@ -102,7 +102,7 @@
 
 > [참고]
 > Deploy 연계를 사용하도록 설정하고 스케일링 그룹을 생성하면 증설 시 자동으로 애플리케이션을 배포하도록 Deploy 서비스에 등록할 수 있습니다.
-> 자세한 내용은 [Deploy 가이드](/Dev%20Tool/Deploy/ko/console-guide/)를 참고하세요.
+> 자세한 내용은 [Deploy 가이드](/Dev%20Tools/Deploy/ko/console-guide/)를 참고하세요.
 > Deploy 연계 기능은 2021년 07월 현재 한국(판교), 한국(평촌), 일본(도쿄) 리전에서만 제공됩니다.
 
 
