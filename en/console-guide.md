@@ -2,89 +2,7 @@
 
 ## Instance Templates
 ### Creating Instance Templates
-
-To create an instance through auto scale, an instance template must be created first.
-Below are required to create an instance template:
-
-<table class="it">
-  <tr>
-    <th>Classification</th>
-    <th>Item</th>
-    <th>Description</th>
-  </tr>
-  <tr>
-    <td rowspan="2">Template Information</td>
-    <td>Name</td>
-    <td>Name of Instance Template</td>
-  </tr>
-  <tr>
-    <td>Description</td>
-    <td>Description of an instance template. Up to 255 characters for English</td>
-  </tr>
-  <tr>
-    <td rowspan="8">Instance Information</td>
-    <td>Image</td>
-    <td>An instance image to be created with an instance template</td>
-  </tr>
-  <tr>
-    <td>Name</td>
-    <td>Name of an instance to be created<br>All instances created with a same instance template are named the same</td>
-  </tr>
-  <tr>
-    <td>Availability Area </td>
-    <td>Area where an instance is to be created </td>
-  </tr>
-  <tr>
-    <td>Flavors </td>
-    <td>Specifications of an instance to be created </td>
-  </tr>
-  <tr>
-    <td>Default Disk Size </td>
-    <td>Size of a default disk of an instance to be created <br> The unit is GB; the size is to be confined depending on the instance flavors </td>
-  </tr>
-  <tr>
-    <td>Key Pair</td>
-    <td>Key to access an instance to be created </td>
-  </tr>
-  <tr>
-    <td>Security Group </td>
-    <td>Security rules of an instance to be created </td>
-  </tr>
-  <tr>
-    <td>Network </td>
-    <td>Network to connect with an instance to be created. <br> Can connect up to 4, and the order is important.<br> The first network serves as the default gateway address </td>
-  </tr>
-  <tr>
-    <td rowspan="4">Additional Information </td>
-    <td>Floating IP</td>
-    <td>Whether to assign a floating IP to an instance which is to be created </td>
-  </tr>
-  <tr>
-    <td>Name of Additional Disk</td>
-    <td>Name of a disk to be additionally assigned to an instance which is to be created. </td>
-  </tr>
-  <tr>
-    <td>Size of Additional Disk </td>
-    <td>Size of a volume to be additionally assigned to an instance to be created <br> The unit is GB; allows a value between 10 and 1000GB only </td>
-  </tr>
-  <tr>
-    <td>User Script </td>
-    <td>Script to execute immediately after booting on an instance to be created <br> Allows up to 65535 characters in English </td>
-  </tr>
-</table>
-
-> [Note]
-> Additional disks can be used after mounted by a user script. Regarding the mounting procedure using user scripts, refer to [Block Storage Guide](/Storage/Block%20Storage/en/overview/#_2).
-
-<br/>
-
-> [Note]
-> Creating a scaling group with a Deploy-enabled instance template allows users to register the group to the Deploy service so the applications can be automatically deployed when scaling. For details, refer to [Deploy Guide](/Dev%20Tool/Deploy/ko/console-guide/).
-
-<br/>
-
-> [Caution]
-> An instance template, once created, cannot be modified.
+There must be an instance template to make a scaling group. The instance template pre-defines the component information of individual instance constituting the scaling group. See [Instance Template Console Guide](/Compute/Instance%20Template/en/console-guide/) for details.
 
 ## Scaling Groups
 ### View List of Scaling Groups
@@ -117,7 +35,7 @@ Following items can be defined in a scaling group.
   <tr>
     <td rowspan="5">Setting</td>
     <td>Name</td>
-    <td>Name of a scaling group, within 20 characters in combination of capital and lower cases, '-', '.', and numbers </td>
+    <td>The name of the scaling group, alphabet characters, '-', '.' and numbers, within 20 characters</td>
   </tr>
   <tr>
     <td>Instance Template</td>
@@ -136,27 +54,52 @@ Following items can be defined in a scaling group.
     <td>The number of instances created when a scaling group is activated for the first time </td>
   </tr>
   <tr>
-    <td rowspan="4">Policy</td>
+    <td rowspan="4">Scale-out/in policy</td>
     <td>Condition</td>
     <td>Initiating conditions for scale-out/in policy <br> Specify performance indicators, reference values, and continued time</tr>
   <tr>
     <td>Conditional Operator</td>
-    <td>Operators to be applied between initiating conditions <br> With `and `, policy is initiated when all conditions are satisfied<br> With`or`, policy is initiated when only one of the conditions is met</td>
+    <td>Operators to be applied between initiating conditions <br>With <b>and</b>, policy is initiated when all conditions are satisfied <br>With <b>or</b>, policy is initiated when only one of the conditions is met</td>
   </tr>
   <tr>
-    <td>Instance</td>
+    <td>Adjust instance</td>
     <td>Number of instances to be created or deleted when a policy is initiated. </td>
   </tr>
   <tr>
-    <td>Cooldown Period </td>
-    <td>Time to wait until a policy is initiated again after previous initiation <br>If cooldown period has not passed, policy cannot be initiated even if conditions are met.  </td>
+     <td>Cooldown Period</td>
+     <td>Time to wait until a policy is initiated again after previous initiation <br>If cooldown period has not passed, policy cannot be initiated even if conditions are met.  </td>
+  </tr>
+  <tr>
+    <td>Auto healing policy</td>
+    <td>Auto healing</td>
+    <td>Whether to use auto healing policy</td>
   </tr>
   <tr>
     <td>Load Balancer </td>
     <td>Selected Load Balancer </td>
     <td>The load balancer that a created instance is to be connected with.  </td>
   </tr>
+  <tr>
+    <td>Additional policy</td>
+    <td>Deploy linkage</td>
+    <td>Whether to use the auto distribution feature using deploy service when scale-out</td>
+  </tr>
 </table>
+
+<br/>
+
+> [Notes]
+> With auto healing policies, the failure of each individual instance is handled by deleting the instance and replacing it with a new one.
+> If an instance's performance metrics are not collected during a continuous 3-minute period, it is determined as an error and auto healing will proceed.
+> Auto healing occurs regardless of the cooldown period.
+
+<br/>
+
+> [Notes]
+> Enabling the Deploy linkage option when creating scaling groups allows users to use the Deploy service to automatically deploy their applications as new instances are created.
+> For more information, see [Deploy Guide](/Dev%20Tools/Deploy/en/console-guide/).
+> Deploy linkage feature is currently provided only in Korea (Pangyo, Pyeongchon) and Japan(Tokyo) regions as of July, 2021.
+
 
 ### Stop scaling group
 
@@ -170,12 +113,12 @@ Selects a desired scaling group from the scaling group list and pauses it. The p
 ### View Details and Modify
 Select a scaling group from the list of scaling groups and check its details.
 
-Click `Edit`on details screen, to modify attributes of the scaling group. By modifying the scaling group, instance templates in use or minimum/maximum/running instances can be changed.
+Click `Edit` on details screen, to modify attributes of the scaling group. By modifying the scaling group, instance templates in use or minimum/maximum/running instances can be changed.
 
 ### View Policy and Execute
 Select a scaling group from the list of scaling groups and check its scaling policy.
 
-Click `Edit` on policy details, to modify scaling policy. Or, click `Execute`in scale up/down policy to initiate the policy by force.  
+Click `Edit` on policy details, to modify scaling policy. Or, click `Execute` in scale up/down policy to initiate the policy by force.  
 
 ### View and Create Scheduled Tasks
 Select a scaling group from the list of scaling groups, and check scheduled tasks.
@@ -189,10 +132,10 @@ Items as follows are required to create a scheduled task:
 |--|--|
 | Name | Name of a scheduled task |
 | Change Items | Attributes of a scaling group to be changed by a scheduled task <br>Select one out of the minimum/maximum/running instances |
-| Value | New value of an attribute specified in change items <br>Modify the attribute selected from  `Change Items`on specified timing to this value |
+| Value | New value of an attribute specified in change items <br>Modify the attribute selected from  `Change Items` on specified timing to this value |
 | Repeat | Whether to repeat a scheduled task<br>Select either once or Cron expression |
 | Cron Expression | Activated when Cron expression is selected for `Repeat` |
-| Start Time | Activation time for a scheduled task <br>When `Repeat`is set once, task shall be executed on start time <br>When Cron expression is selected for`Repeat`, scheduled tasks are executed on a regular basis from the start time. |
+| Start Time | Activation time for a scheduled task <br>When `Repeat` is set once, task shall be executed on start time <br>When Cron expression is selected for `Repeat`, scheduled tasks are executed on a regular basis from the start time. |
 | End Time | Closing time for a scheduled task <br>Activated when Cron expression is selected for `Repeat` |
 
 > [Note]
@@ -249,7 +192,7 @@ Statistical graphs provide statistics on system resources, as follows:
 
 | System Resources | Provided Statistical Data |
 | --- | --- |
-| CPU Usage | Average CPU usage of all instances that belong to a scaling grop|
+| CPU Usage | Average CPU usage of all instances that belong to a scaling group|
 | Memory Usage | Average memory usage of all instances that belong to a scaling group|
 | Disk Transfer Rate | Average data volume of read/write disk data per minute for all instances that belong to a scaling group|
 | Network Transfer Rate | Average data volume of send/receive network per minute for all instances that belong to a scaling group |
