@@ -1,14 +1,6 @@
 ## Compute > Auto Scale > Overview
 
 The Auto Scale service keeps monitoring instance loads to add or create instances as required. It also automatically creates a new instance when there is an error, such as disconnected network, so that the failed instance can be replaced.
-The auto scale is composed of an instance template and a scaling group.
-
-## Instance Template
-An instance template is an attribute of an instance that is to be automatically created. Items that are required when creating an instance must be set by default.
-In addition, floating IPs and more volumes may be added, and a user script, which is to be executed for the first operation of an instance created by instance template, can be added by configuration.
-
-> [Note] The role of an instance template is to simply save setting.
-> An instance cannot be created only by creating an instance template.
 
 ## Scaling Group
 Scaling group defines conditions to additionally create/delete instances, as well as activities to perform when the conditions are met. On principle, a scaling group is comprised of settings for minimum/maximum/running instances, scale out/in policy and auto healing policy.
@@ -54,7 +46,7 @@ As such, without a cooldown period, instances may be abruptly increased or decre
 
 > [Caution] To prevent execution of both scale-out/in policies, scaling groups should also require a cooldown period. The cooldown period of a scaling group should follow the smaller value of a scale-out/in policy.
 
-The auto healing policy is automatically configured without extra setting, when a scaling group is created. If performance indicators of an instance fail to be collected for three minutes, it is considered a failure, and the instance is deleted and replaced by a new instance. Auto recovery runs regardless of the cooldown.
+With auto healing policies, the failure of each individual instance is handled by deleting the instance and replacing it with a new one. If an instance's performance statistics are not collected during a continuous 3-minute period, it is determined as an error and auto healing will proceed. Auto healing occurs regardless of the cooldown period.
 
 ### Load Balancer
 Specifies a load balancer to connect after an instance is created. With a scale-out policy, created instances are connected to a designated load balancer. As newly-added instances naturally share loads by load balancer, they can be immediately put into services.
