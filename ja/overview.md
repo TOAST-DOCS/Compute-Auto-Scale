@@ -30,7 +30,7 @@
 
 指定された条件を満たしてポリシーが発動する場合、スケーリンググループは条件に応じた動作を実行します。動作とはスケーリンググループの駆動するインスタンスの台数を調整することです。駆動インスタンスの台数が増加すると*増設ポリシー**、削減すると*縮小ポリシー**と呼びます。
 
-> [参考]縮小ポリシーが発動すると、最も古いインスタンスから終了します。インスタンスが終了する時に発生するシグナル（Linuxの場合［SIGTERM/SIGKILL](https：//www.freedesktop.org/software/systemd/man/systemd.service.html), Windowsの場合［WM_QUERYENDSESSION](https：//msdn.microsoft.com/en-us/library/windows/desktop/aa376890.aspx)/[WM_ENDSESSION](https：//msdn.microsoft.com/en-us/library/windows/desktop/aa376889.aspx))のハンドラを実装して、サービスが中断することなく終了できるようにします。
+> [参考]縮小ポリシーが発動すると、最も古いインスタンスから停止します。インスタンスが停止する時に発生するシグナル（Linuxの場合［SIGTERM/SIGKILL](https：//www.freedesktop.org/software/systemd/man/systemd.service.html), Windowsの場合［WM_QUERYENDSESSION](https：//msdn.microsoft.com/en-us/library/windows/desktop/aa376890.aspx)/[WM_ENDSESSION](https：//msdn.microsoft.com/en-us/library/windows/desktop/aa376889.aspx))のハンドラを実装して、サービスが中断することなく終了できるようにします。
 
 条件に合う動作を無制限に実行することを防ぐために、再使用待機時間（cooldown time)を設定します。最後に動作を実行した時から再使用待機時間の間は条件を満たしてもポリシーを発動しません。
 
