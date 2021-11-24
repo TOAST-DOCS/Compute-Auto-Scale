@@ -30,7 +30,7 @@
 
 지정된 조건을 만족하여 정책이 발동한 경우 스케일링 그룹은 조건에 따른 동작을 실행합니다. 구체적으로 동작이란 스케일링 그룹의 구동 인스턴스 값을 조정하는 것입니다. 구동 인스턴스의 값이 증가하면 **확장 정책**, 감소하면 **감축 정책**이라고 합니다.
 
-> [참고] 감축 정책이 발동하면 가장 오래된 인스턴스부터 종료합니다. 인스턴스가 종료될 때 발생하는 시그널 (Linux의 경우 [SIGTERM/SIGKILL](https://www.freedesktop.org/software/systemd/man/systemd.service.html), Windows의 경우 [WM_QUERYENDSESSION](https://msdn.microsoft.com/en-us/library/windows/desktop/aa376890.aspx)/[WM_ENDSESSION](https://msdn.microsoft.com/en-us/library/windows/desktop/aa376889.aspx))에 대한 핸들러를 구현하여 서비스가 중단 없이 종료될 수 있도록 합니다.
+> [참고] 감축 정책이 발동하면 가장 오래된 인스턴스부터 중지합니다. 인스턴스가 중지될 때 발생하는 시그널 (Linux의 경우 [SIGTERM/SIGKILL](https://www.freedesktop.org/software/systemd/man/systemd.service.html), Windows의 경우 [WM_QUERYENDSESSION](https://msdn.microsoft.com/en-us/library/windows/desktop/aa376890.aspx)/[WM_ENDSESSION](https://msdn.microsoft.com/en-us/library/windows/desktop/aa376889.aspx))에 대한 핸들러를 구현하여 서비스가 중단 없이 종료될 수 있도록 합니다.
 
 조건에 맞는 동작을 무제한으로 수행하는 것을 막기 위해 재사용 대기 시간(cooldown time)을 설정합니다. 마지막으로 동작을 수행한 시간으로부터 재사용 대기 시간 동안은 조건을 충족하더라도 정책을 발동하지 않습니다.
 

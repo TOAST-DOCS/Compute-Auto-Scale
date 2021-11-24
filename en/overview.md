@@ -29,7 +29,7 @@ A scaling group observes whether specified performance indicators exceed the ref
 
 With policy set as specified conditions are met, the scaling group executes operations according to the conditions. More specifically, an operation refers to adjusting the value of a running instance in a scaling group: an increased value of a running instance is from **Scale-out Policy**, while a decrease is from **Scale-in Policy**.
 
-> [Note] With a scale-in policy, closing starts from the oldest instance. Implement a handler of signals that occur when an instance is closed ([SIGTERM/SIGKILL](https://www.freedesktop.org/software/systemd/man/systemd.service.html) for Linux, and [WM_QUERYENDSESSION](https://msdn.microsoft.com/en-us/library/windows/desktop/aa376890.aspx)/[WM_ENDSESSION](https://msdn.microsoft.com/en-us/library/windows/desktop/aa376889.aspx) for Windows) so as to close service without suspension.
+> [Note] During a scale-in event, older instances are stopped first. Implement a signal handler for the signal that is raised when an instance is stopped ([SIGTERM/SIGKILL](https://www.freedesktop.org/software/systemd/man/systemd.service.html) on Linux, [WM_QUERYENDSESSION](https://msdn.microsoft.com/en-us/library/windows/desktop/aa376890.aspx)/[WM_ENDSESSION](https://msdn.microsoft.com/en-us/library/windows/desktop/aa376889.aspx) on Windows) in order to ensure that your services are stopped without interruption.
 
 To prevent unlimited execution of operations following conditions, the cooldown period is configured. During a cooldown period after the last time of operation, policy cannot take effect even with satisfying conditions.
 
