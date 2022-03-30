@@ -1,9 +1,5 @@
 ## Compute > Auto Scale > 콘솔 사용 가이드
 
-## 동영상 가이드
-
-<iframe width="560" height="315" src="https://www.youtube.com/embed/6ON5y6Dlk7w" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
 ## 인스턴스 템플릿
 ### 인스턴스 템플릿 생성
 스케일링 그룹(Scaling Group)을 만들려면 인스턴스 템플릿(Instance Template)이 있어야 합니다. 인스턴스 템플릿은 스케일링 그룹을 구성하는 개별 인스턴스의 구성 요소 정보를 미리 정의합니다. 자세한 내용은 [인스턴스 템플릿 콘솔 가이드](/Compute/Instance%20Template/ko/console-guide/)를 참고하세요.
