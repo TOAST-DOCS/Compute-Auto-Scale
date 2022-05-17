@@ -1,248 +1,203 @@
-## 计算 > 弹性伸缩 > 控制台使用指南
+## Compute > Auto Scale > Console Guide
 
-## 实例模板
-### 创建实例模板
+## Instance Templates
+### Creating Instance Templates
+There must be an instance template to make a scaling group. The instance template pre-defines the component information of individual instance constituting the scaling group. See [Instance Template Console Guide](/Compute/Instance%20Template/en/console-guide/) for details.
 
-如果通过auto scale创建实例，需要先创建实例模板。
-创建实例模板需要定义如下条目。
+## Scaling Groups
+### View List of Scaling Groups
+Shows currently-active scaling groups. On the View List screen, status of each scaling group can be found.
 
-<table class="it">
-  <tr>
-    <th>分类</th>
-    <th>项目</th>
-    <th>描述</th>
-  </tr>
-  <tr>
-    <td rowspan="2">模板信息</td>
-    <td>名称</td>
-    <td>实例模板的名称</td>
-  </tr>
-  <tr>
-    <td>描述</td>
-    <td>针对实例模板的描述说明。限于255个英文字符以内。</td>
-  </tr>
-  <tr>
-    <td rowspan="8">实例信息</td>
-    <td>镜像</td>
-    <td>作为实例模板使用的实例镜像。</td>
-  </tr>
-  <tr>
-    <td>名称</td>
-    <td>将要创建的实例的名称。<br>使用同一个实例模板创建的实例都具有相同的名称。</td>
-  </tr>
-  <tr>
-    <td>可用区(availability zone)</td>
-    <td>可创建实例的区域</td>
-  </tr>
-  <tr>
-    <td>规格(flavor)</td>
-    <td>创建的实例所具备的规格</td>
-  </tr>
-  <tr>
-    <td>系统盘大小</td>
-    <td>创建的实例默认的磁盘大小，<br>单位为GB。大小受实例规格的限制</td>
-  </tr>
-  <tr>
-    <td>密钥对(key pair)</td>
-    <td>创建实例后访问实例所需的密钥</td>
-  </tr>
-  <tr>
-    <td>安全组(security group)</td>
-    <td>创建的实例所适用的安全规则</td>
-  </tr>
-  <tr>
-    <td>网络</td>
-    <td>创建的实例所要连接的网络。<br>最多可建立4个连接，连接顺序非常重要。 <br>第一个网络地址将被设置为默认网关</td>
-  </tr>【】
-  <tr>
-    <td rowspan="4">补充信息</td>
-    <td>浮动IP</td>
-    <td>是否在创建的实例中分配浮动IP</td>
-  </tr>
-  <tr>
-    <td>数据盘名称</td>
-    <td>向创建的实例额外分配的磁盘的名称</td>
-  </tr>
-  <tr>
-    <td>数据盘大小</td>
-    <td>向创建的实例额外分配的卷的大小<br>单位为GB，只允许10 ~ 1000GB之间的值</td>
-  </tr>
-  <tr>
-    <td>用户脚本</td>
-    <td>当创建的实例启动后立即运行的脚本。<br>最多允许65535个英文字符</td>
-  </tr>
-</table>
+- Minimum/Maximum Instances: Minimum/Maximum number of instances that a scaling group can create.
+- Current Instances: The number of instances currently possessed by a scaling group.
+- Instance Template: The instance template currently used by a scaling group.
+- Load Balancer: The load balancer currently used by a scaling group.
+- Status: Refers to the status of a scaling group, by which success/failure of operation according to its policy can be confirmed. Below are the list of status.
 
-> [参考]
-> 新增数据盘只能通过用户脚本挂载后才可使用。详细步骤请参考[块存储指南](/Storage/Block%20Storage/zh/overview/#_2)。
-
-<br/>
-
-> [注意]实例模板创建后将不可修改。
-
-## 伸缩组
-### 查看伸缩组列表
-显示当前活动的伸缩组。您可以在查询列表页面查看每个伸缩组的状态。
-
-- 最小/最大实例：表示伸缩组可以创建的最小/最大实例数。
-- 当前实例：表示伸缩组当前拥有的实例数。
-- 实例模板：表示伸缩组当前使用的的实例模板。
-- 负载均衡：表示伸缩组当前使用的负载均衡。
-- 状态：表示伸缩组的状态。您可以确认伸缩组策略触发是否成功。伸缩组状态列表如下所示：
-
-| 状态 | 描述 |
+| Status | Description |
 |--|--|
-| CREATE_IN_PROGRESS | 表示伸缩组正在创建 |
-| CREATE_COMPLETE | 表示伸缩组创建成功<br>按照投入实例数创建实例 |
-| CREATE_FAILED | 表示伸缩组创建失败<br>联系客服 |
-| UPDATE_IN_PROGRESS | 表示伸缩组正在更新 |
-| UPDATE_COMPLETE | 表示修改伸缩组或触发伸缩策略，引发其资源发生改变 |
-| UPDATE_FAILED | 表示伸缩组操作失败<br>联系客服 |
+| CREATE_IN_PROGRESS | Creation of a scaling group is under progress |
+| CREATE_COMPLETE | Scaling group has been successfully created <br> Instances are created as many as running instances |
+| CREATE_FAILED | Creating a scaling group has failed  <br> Contact Administrator|
+| UPDATE_IN_PROGRESS | Change of a scaling group is under way |
+| UPDATE_COMPLETE | Change in resources owned by a scaling group has been made due to modification or scale-out/in policy |
+| UPDATE_FAILED | Operation for a scaling group has failed <br> Contact Administrator |
 
-### 创建伸缩组
-您可以在伸缩组中定义以下条目。
+### Create Scaling Groups
+Following items can be defined in a scaling group.
 
 <table class="sg">
   <tr>
-    <th>分类</th>
-    <th>项目</th>
-    <th>描述</th>
+    <th>Classification</th>
+    <th>Item</th>
+    <th>Description</th>
   </tr>
   <tr>
-    <td rowspan="5">设置</td>
-    <td>名称</td>
-    <td>表示伸缩组名称，使用大小写英文字母, '-', '.'及数字，限于20字以内</td>
+    <td rowspan="5">Setting</td>
+    <td>Name</td>
+    <td>The name of the scaling group, alphabet characters, '-', '.' and numbers, within 20 characters</td>
   </tr>
   <tr>
-    <td>实例模板</td>
-    <td>用于伸缩组的实例模板</td>
+    <td>Instance Template</td>
+    <td>The instance template to be used by a scaling group </td>
   </tr>
   <tr>
-    <td>最小实例</td>
-    <td>伸缩组激活期间保持的最少实例数</td>
+    <td>Minimum Instance</td>
+    <td>The number of instances to be maintained at the minimum while a scaling group is activated </td>
   </tr>
   <tr>
-    <td>最大实例</td>
-    <td>伸缩组激活期间可创建的最大实例数</td>
+    <td>Maximum Instance</td>
+    <td>The number of maximum instances allowed while a scaling group is activated </td>
   </tr>
   <tr>
-    <td>投入实例</td>
-    <td>伸缩组首次激活时创建的实例数</td>
+    <td>Running Instance </td>
+    <td>The number of instances created when a scaling group is activated for the first time </td>
   </tr>
   <tr>
-    <td rowspan="4">策略</td>
-    <td>条件</td>
-    <td>伸/缩策略的触发条件<br>指定要监控的性能指标，参考值和持续时间</td>
+    <td rowspan="4">Scale-out/in policy</td>
+    <td>Condition</td>
+    <td>Initiating conditions for scale-out/in policy <br> Specify performance indicators, reference values, and continued time</tr>
+  <tr>
+    <td>Conditional Operator</td>
+    <td>Operators to be applied between initiating conditions <br>With <b>and</b>, policy is initiated when all conditions are satisfied <br>With <b>or</b>, policy is initiated when only one of the conditions is met</td>
   </tr>
   <tr>
-    <td>Condition Operator</td>
-    <td>触发条件之间应用的运算符<br>选择`and`表示满足所有条件时才可触发策略<br>选择`or`表示在多项条件中满足其一即可触发策略</td>
+    <td>Adjust instance</td>
+    <td>Number of instances to be created or deleted when a policy is initiated. </td>
   </tr>
   <tr>
-    <td>实例</td>
-    <td>触发策略所生成或删除的实例数</td>
+     <td>Cooldown Period</td>
+     <td>Time to wait until a policy is initiated again after previous initiation <br>If cooldown period has not passed, policy cannot be initiated even if conditions are met.  </td>
   </tr>
   <tr>
-    <td>冷却时间(cooldown time)</td>
-    <td>当前触发至下一次触发之间的等待时间<br>如果冷却时间未达到，即使满足条件也无法触发策略。</td>
+    <td>Auto healing policy</td>
+    <td>Auto healing</td>
+    <td>Whether to use auto healing policy</td>
   </tr>
   <tr>
-    <td>负载均衡</td>
-    <td>选取的负载均衡</td>
-    <td>创建的实例将要连接的负载均衡</td>
+    <td>Load Balancer </td>
+    <td>Selected Load Balancer </td>
+    <td>The load balancer that a created instance is to be connected with.  </td>
+  </tr>
+  <tr>
+    <td>Additional policy</td>
+    <td>Deploy linkage</td>
+    <td>Whether to use the auto distribution feature using deploy service when scale-out</td>
   </tr>
 </table>
 
-### 查看及编辑详情
-在伸缩组列表中选择目标伸缩组以查看详细信息。
+<br/>
 
-在详情页面中选择`编辑`可修改伸缩组属性。通过修改伸缩组属性可以更改当前使用中的实例模板或最小/最大/投入实例。
+> [Notes]
+> With auto healing policies, the failure of each individual instance is handled by deleting the instance and replacing it with a new one.
+> If an instance's performance metrics are not collected during a continuous 3-minute period, it is determined as an error and auto healing will proceed.
+> Auto healing occurs regardless of the cooldown period.
 
-### 查看及运行策略
-在伸缩组列表中选择目标伸缩组以查看伸缩策略。
+<br/>
 
-在伸缩策略页面选择`编辑`可修改伸缩策略。或者，在伸/缩策略中选择`运行`强制触发策略。
+> [Notes]
+> Enabling the Deploy linkage option when creating scaling groups allows users to use the Deploy service to automatically deploy their applications as new instances are created.
+> For more information, see [Deploy Guide](/Dev%20Tools/Deploy/en/console-guide/).
+> Deploy linkage feature is currently provided only in Korea (Pangyo, Pyeongchon) and Japan(Tokyo) regions as of July, 2021.
 
-### 查看及创建计划任务
-在伸缩组列表中选择目标伸缩组以查看计划任务。
 
-可以通过计划任务在指定的时间对伸缩组最小/最大/投入实例数进行调整。
-计划任务可以设置为仅运行一次或定期运行。
+### Stop scaling group
 
-创建计划任务需要定义以下条目。
+Selects a desired scaling group from the scaling group list and pauses it. The paused scaling group can be restarted using the 'Start Scaling Group' button.
 
-| 项目 | 描述 |
+> [Note]
+> The status of a paused scaling group is displayed in yellow.
+> All control features including controlling the number of instances, changing scaling group policy, changing load balancer, creating scheduled tasks are limited for a paused scaling group.
+> As the affiliated instances stop, statistics graphs are unavailable.
+
+### View Details and Modify
+Select a scaling group from the list of scaling groups and check its details.
+
+Click `Edit` on details screen, to modify attributes of the scaling group. By modifying the scaling group, instance templates in use or minimum/maximum/running instances can be changed.
+
+### View Policy and Execute
+Select a scaling group from the list of scaling groups and check its scaling policy.
+
+Click `Edit` on policy details, to modify scaling policy. Or, click `Execute` in scale up/down policy to initiate the policy by force.  
+
+### View and Create Scheduled Tasks
+Select a scaling group from the list of scaling groups, and check scheduled tasks.
+
+With task scheduling, the number of minimum/maximum/running instances of a scaling group at a specific time can be adjusted.  
+Scheduled tasks can be set for one-time or periodic execution.
+
+Items as follows are required to create a scheduled task:
+
+| Item | Description |
 |--|--|
-| 名称 | 计划任务的名称 |
-| 变更项目 | 计划任务要更改的伸缩组属性<br>在最小/最大/投入实例中选择一项 |
-| 值 | 在更改条目中指定的新属性值<br>在指定的时间用该值替换`更改条目`中所选的属性 |
-| 重复 | 计划任务是否重复<br>1次或Cron表达式两个选项中选择一个|
-| Cron表达式 | 当`重复`选择Cron表达式时被激活 |
-| 开始时间 | 计划任务开始的时间<br>若`重复`选择1次，则在开始时间执行计划任务<br>若`重复`选择Cron表达式，则以开始时间为节点定期执行计划任务 |
-| 结束时间 | 计划任务结束的时间<br>当`重复`选择Cron表达式时被激活 |
+| Name | Name of a scheduled task |
+| Change Items | Attributes of a scaling group to be changed by a scheduled task <br>Select one out of the minimum/maximum/running instances |
+| Value | New value of an attribute specified in change items <br>Modify the attribute selected from  `Change Items` on specified timing to this value |
+| Repeat | Whether to repeat a scheduled task<br>Select either once or Cron expression |
+| Cron Expression | Activated when Cron expression is selected for `Repeat` |
+| Start Time | Activation time for a scheduled task <br>When `Repeat` is set once, task shall be executed on start time <br>When Cron expression is selected for `Repeat`, scheduled tasks are executed on a regular basis from the start time. |
+| End Time | Closing time for a scheduled task <br>Activated when Cron expression is selected for `Repeat` |
 
-> [参考]
-> Cron表达式是表示计划任务执行时间和频率的表达式。
+> [Note]
+> The Cron Expression is applied to show execution time/cycle of a scheduled task.
 >
-> Cron表达式由5个条目组成，每个条目用空格字符分隔。各条目定义如下。
+> The Cron expression is comprised of five items, each of which is divided by space characters and it means as follows:   
 >
-> | 条目 | 允许范围 | 可用的特殊字符 |
+> | Item | Range Allowed | Available Special Characters |
 > |--|--|--|
-> | 分钟 | 0-59 | `*` `,` `-` |
-> | 小时 | 0-23 | `*` `,` `-` |
-> | 日 | 1-31 | `*` `,` `-` `?` `L` `W` |
-> | 月 | 1-12<br>JAN-DEC | `*` `,` `-` |
-> | 周 | 0-6<br>SUN-SAT | `*` `,` `-` `?` `L` `#` |
+> | Minute | 0-59 | `*` `,` `-` |
+> | Hour| 0-23 | `*` `,` `-` |
+> | Day | 1-31 | `*` `,` `-` `?` `L` `W` |
+> | Month | 1-12<br>JAN-DEC | `*` `,` `-` |
+> | Day | 0-6<br>SUN-SAT | `*` `,` `-` `?` `L` `#` |
 >
-> 各条目均应用数字或特殊字符指定执行时间。语法如下。
+> For each item, use numbers or special characters to specify execution time. For correct grammar, refer to the following:
 >
-> | 特殊字符 | 含义 |
+> | Special Characters | Meaning |
 > |--|--|
-> | * | 所有时间 |
-> | - | 范围 |
-> | , | 特定时间 |
-> | / | 增量 |
-> | L | 末节时间 |
-> | W | 最近的工作日。仅适用于**日**条目 |
-> | # | 第N个星期。仅适用于**星期**条目 |
+> | * | All Hours |
+> | - | Range |
+> | , | Specific Time |
+> | / | Increase Volume |
+> | L | Last Time |
+> | W | Closest Weekday: available only on **Day** items |
+> | # | The Nth Day: available only on  **Day** items |
 >
-> Cron表达式具体事例。
+> The Cron expression is used like in the following examples.
 >
-> `0 10 * * *`: 每日10点0分执行<br>
-> `0/20 15 * * *`: 每日15点0分起每隔20分钟执行一次，即15点0分，20分， 40分各执行一次<br>
-> `0 12-15 * * *`: 每日12点，13点，14点，15点0分执行<br>
-> `0 0 15 6,7,8 *`: 6月7月8月15日0点0分执行<br>
-> `0 0 L * *`: 每月最后一天0点0分执行<br>
-> `0 9 25W * *`: 在每月25日最近的工作日9点执行<br>
-> `0 9 * * 3#2`: 每月第二个星期四9点0分执行
+> `0 10 * * *`: Executes at every 10:00 <br>
+> `0/20 15 * * *`: Executes in every 20 minutes from 15:00, like 15:00, 15:20, and 15:40 <br>
+> `0 12-15 * * *`: Executes at every 12:00, 13:00, 14:00, and 15:00 <br>
+> `0 0 15 6,7,8 *`: Executes at 00:00 on the 15th of June, July, and August <br>
+> `0 0 L * *`: Executes at 00:00 on the last day of every month <br>
+> `0 9 25W * *`: Executes at 09:00 on a closest weekday from the 25th day of every month <br>
+> `0 9 * * 3#2`: Executes at 09:00 on the second Thursday of every month <br>
 
-<br>
+> [Caution]
+> Start time of a scheduled task can be specified only after three minutes from the current time. If a scaling group is now changing, scheduled task may be delayed.
 
-> [注意]
-> 计划任务的开始时间必须要晚于当前时间至少3分钟以上。当伸缩组处于更新状态时计划任务的执行可能会发生延迟。
+### View List of Created Instances
+Select a scaling group from the list and check the list of created instances.
 
-### 查看创建的实例列表
-在伸缩组列表中选择目标伸缩组以查看创建的实例列表。
+> [Caution]
+> Instances that a scaling group created are also exposed on the list of instance products. However, user cannot control them.  
 
-> [注意]
-> 伸缩组创建的实例也会显示在实例产品列表中。但用户无法随意操作。
+### View Statistical Graphs
+Select a scaling group from the list and check its statistical graph.
 
-### 查看统计图表
-在伸缩组列表中选择所需的伸缩组，确认统计图表。
+> [Note]
+> The statistical graph shows the average usage of instances that belong to a scaling group during the last 1 day. You can also identify the point of time and cause of increase or decrease.
 
-> [参考]
-> 通过统计图表，可确认伸缩组中实例最近1天的平均使用量。另外还可掌握增设或缩减的时间及原因。
+Statistical graphs provide statistics on system resources, as follows:
 
-统计图表提供如下系统资源相关统计数据。
-
-| 系统资源 | 提供的统计数据 |
+| System Resources | Provided Statistical Data |
 | --- | --- |
-| CPU使用率 | 伸缩组中所有实例的CPU平均使用量 |
-| 内存使用率 | 伸缩组中所有实例的内存平均使用量 |
-| 磁盘传输率 | 伸缩组中所有实例的每分钟磁盘平均读/写数据量 |
-| 网络传输率 | 伸缩组中所有实例的每分钟网络平均发送/接收数据量 |
+| CPU Usage | Average CPU usage of all instances that belong to a scaling group|
+| Memory Usage | Average memory usage of all instances that belong to a scaling group|
+| Disk Transfer Rate | Average data volume of read/write disk data per minute for all instances that belong to a scaling group|
+| Network Transfer Rate | Average data volume of send/receive network per minute for all instances that belong to a scaling group |
 
-各图表能够以最大5分钟为间隔放大查看，提供最小以1分钟为单位的统计数据。
+Each graph can be extended up to 5-minute intervals, providing 1-minute statistical data at the minimum.
 
-> [参考]
-> 为获得统计值，应收集伸缩组中各实例的数据，但无法同时收集所有实例的数据。因此，也可能缺少最近几分钟内部分实例的数据。统计值将缺少收集数据的实例排除后计算得出。因此，之后收集遗漏实例的数据后，值有可能更改。收集所有实例的数据后，提供保持统一的值。
+> [Note]
+> Statistics require data of every instance of a scaling group, but it is impossible to collect all instance data at once. And that may cause some missing data during the first few minutes. Statistics are calculated based only on those instances which include collected data; hence, with further data added at later stage, values may change. Now, after all data is collected for every instance, you can find the same values at all times.
