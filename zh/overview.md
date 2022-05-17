@@ -1,77 +1,66 @@
-## 计算 > 弹性伸缩 > 概要
+## Compute > Auto Scale > Overview
 
-弹性伸缩(auto scale)是持续监控实例的负荷，需要时额外创建或删除实例，若个别实例存在网络断开等故障，自动创建新实例，替代发生问题的实例的服务。通过Auto Scale可实时应对负荷和故障，稳定且灵活地为用户提供服务。
+The Auto Scale service keeps monitoring instance loads to add or create instances as required. It also automatically creates a new instance when there is an error, such as disconnected network, so that the failed instance can be replaced.
 
+## Scaling Group
+Scaling group defines conditions to additionally create/delete instances, as well as activities to perform when the conditions are met. On principle, a scaling group is comprised of settings for minimum/maximum/running instances, scale out/in policy and auto healing policy.
+### Minimum, Maximum, and Running Instances
+Minimum, maximum, and running instances are the parameters that must be defined in a scaling group, and each can be described as follows:
 
-弹性伸缩由实例模板和伸缩组来构成。
+- Minimum/Maximum Instances: The minimum/maximum value of the number of instances that a scaling group can create.
+- Running Instances: The number of instances that are created and currently run by a scaling group. Change of this value results in change of the number of instances.
 
-## 实例模板
-实例模板是指被自动创建的实例属性。通常要设置创建实例时必要的项目。除此之外，也可以设置弹性IP及增加的量。也可以用实例模板创建实例时运行的用户自定义的脚本。
+If the number of minimum, maximum, and running instances refers to 1, 10, and 2, respectively, two instances are created at first, depending on the running instances. Later, with scale-out/in policy, the running instances may be increased or decreased. Running instances cannot surpass a specified range beyond minimum/maximum instances.
 
-> [参考] 实例模板的作用仅是保存设置值。
-> 只创建实例模板，并不能创建一个实例。
+### Policy
+A policy refers to a definition of criteria for creating or removing instances, and is composed of more than one condition, as well as operations when such conditions are met.
+Conditions for a policy include instance performance indicators, reference value, and continued time. Following are the instance performance indicators applied for a scaling group.
 
-## 伸缩组
-伸缩组定义的是增加或减少实例的条件和当满足条件时执行的动作。通常
-伸缩组由对投入实例的最小，最大设置值和增加, 减少的(scale out, scale in) 策略来构成。
+- CPU usage rate (%)
+- Memory usage rate (%)
+- Read/Write disk volume per minute (KB/m)
+- Network transmission volume per minute (KB/m)
 
-### 最小、最大、投入实例
-最小、最大、投入实例必须要在伸缩组中定义参数。其每个参数代表的意思如下。
+The performance indicators in the above are collected at every minute, and collected indicators are managed by each group. Auto scale products eventually check the average value of all instances within a scaling group.
 
-- 最小、最大实例: 伸缩组可创建的实例数量的最小值和最大值。
-- 投入实例: 伸缩组创建并投入中的实例的数量。 当此值发生变化时将调整实例的数量。
+> [Caution] Policy cannot take effect if, only one specific instance satisfies conditions.
 
-当最小、最大、投入实例为1, 10, 2的时候，最初的时候根据投入实例会创建2台实例。之后根据负荷状况来启动增加或减少的策略，随之投入实例将会增加或减少。投入实例在任何情况下也不能超出最少、最大实例指定的范围。
+A scaling group observes whether specified performance indicators exceed the reference value throughout a duration and determines whether to execute a policy. For instance, if the CPU usage rate is more than 90% with 5 minutes of duration, the policy can take effect when the CPU usage rate does not fall below 90% for five minutes.
 
-### 策略
-策略是指创建或删除实例的基准，是由一个以上条件和当满足条件时执行的动作来构成。
-策略的条件是由实例的性能指标，基准值，持续时间来构成。伸缩组使用的实例的性能指标如下。
+With policy set as specified conditions are met, the scaling group executes operations according to the conditions. More specifically, an operation refers to adjusting the value of a running instance in a scaling group: an increased value of a running instance is from **Scale-out Policy**, while a decrease is from **Scale-in Policy**.
 
-- CPU使用率(%)
-- 内存使用率(%)
-- 磁盘每分钟的读写量(KB/m)
-- 网络每分钟的传输接收量(KB/m)
+> [Note] During a scale-in event, older instances are stopped first. Implement a signal handler for the signal that is raised when an instance is stopped ([SIGTERM/SIGKILL](https://www.freedesktop.org/software/systemd/man/systemd.service.html) on Linux, [WM_QUERYENDSESSION](https://msdn.microsoft.com/en-us/library/windows/desktop/aa376890.aspx)/[WM_ENDSESSION](https://msdn.microsoft.com/en-us/library/windows/desktop/aa376889.aspx) on Windows) in order to ensure that your services are stopped without interruption.
 
-伸缩组对以上的性能指标每分钟收集一次。收集后的性能指标以伸缩组单位来管理。 最终弹性伸缩确认的值是伸缩组内所有实例的平均值。
+To prevent unlimited execution of operations following conditions, the cooldown period is configured. During a cooldown period after the last time of operation, policy cannot take effect even with satisfying conditions.
 
-> [注意]只有一个特定实例满足条件时不启动策略。
->
-> 伸缩组实时观察指定的性能指标在持续时间中是否超过基准值，判断是否启动策略。例如：条件为CPU使用率在90%以上，持续时间为5分钟时，在这5分钟之内 使用率不低于90%才能启动策略。
+Here is an example to explain what it means to have a cooldown period.
 
-满足指定条件时启动策略，伸缩组根据条件执行相应的动作。具体来讲动作就是调整伸缩组的投入实例数量。投入实例的数量增加的叫做**增加策略**、减少的叫做 **减少策略**。
+Let's assume that a scaling policy defines_"When the CPU usage rate remains at over 90% for 5 minutes, the running instances should increase by two"_. If the CPU usage rate of actual instances remain for over 90% for 6 minutes, two instances will be created after the first 5 minutes. Then, another two instances will be created in the next 1 minute, as the condition is met once again.
 
-> [参考] 启动减少策略时最先终止的是时间最长的实例。 为实例终止时发生的信号(Linux：[SIGTERM/SIGKILL](https://www.freedesktop.org/software/systemd/man/systemd.service.html), Windows：[WM_QUERYENDSESSION](https://msdn.microsoft.com/en-us/library/windows/desktop/aa376890.aspx)/[WM_ENDSESSION](https://msdn.microsoft.com/en-us/library/windows/desktop/aa376889.aspx)) 执行处理程序，以便服务在无中断的情况下终止。
+As such, without a cooldown period, instances may be abruptly increased or decreased. An appropriate use of a cooldown period is recommended for an efficient resource use.
 
-为防止满足条件的动作不受限制的执行，设置待机时间 (cooldown time)。从最后执行动作的时间至待机时间之内即使满足条件也不启动策略。
-
-举例说明待机时间。
-
-首先，假设增加策略为 _"CPU使用率在90%以上维持5分钟时增加2个投入 实例"。如果实际实例的CPU使用率在90%以上维持了6分钟，这时过5分钟后创建2个实例。之后再过1分钟又满足了CPU使用率在90%维持了5分钟的条件，因此创建2个新的实例。
-
-如果没有待机时间，用户可能意外地遇到实例增加或减少的情况。为有效利用资源请合理设置待机时间。
-
-> [参考] 在伸缩组即可设置增加策略和减少策略的待机时间。
-> 通常情况下增加策略的待机时间设置尽可能要短，以应对紧急增加的负荷，减少策略的待机时间设置尽可能要充足，以应对缓慢的把实例从服务中移除。要实时监控服务的负荷设定适当策略才能防止实例的浪费。
+> [Note] Cooldown can be specified each for scale-out and scale-in policy.
+> In general, a cooldown period for a scale-out policy is set as short as possible to readily react to sudden load hikes, while that for a scale-in policy is set to the longest period allowed, in order to gradually exclude an instance from the service. Continued monitoring of a service load is required to set an appropriate policy, and prevent instances from being wasted.
 
 <br>
 
-> [注意]为防止增加、减少策略同时启动，伸缩组也要设置待机时间。伸缩组的待机时间与增加，减少策略待机时间中的最小值相同。
+> [Caution] To prevent execution of both scale-out/in policies, scaling groups should also require a cooldown period. The cooldown period of a scaling group should follow the smaller value of a scale-out/in policy.
 
-自动恢复政策在创建Scaling组合时无需另外设置，自动构成。若未能在3分钟内收集个别实例的性能指标，则判断为故障，删除相应实例并创建新实例替代。自动恢复运行不受再使用等待时间影响。
+With auto healing policies, the failure of each individual instance is handled by deleting the instance and replacing it with a new one. If an instance's performance statistics are not collected during a continuous 3-minute period, it is determined as an error and auto healing will proceed. Auto healing occurs regardless of the cooldown period.
 
-### 负载均衡
-创建实例后指定要连接的负载均衡，启动增加策略时创建的实例将连接到指定的负载均衡。这样可以对新创建的实例利用负载均衡流畅地分配负荷，立即投入使用。
+### Load Balancer
+Specifies a load balancer to connect after an instance is created. With a scale-out policy, created instances are connected to a designated load balancer. As newly-added instances naturally share loads by load balancer, they can be immediately put into services.
 
-> [参考] 新创建的实例实际投入到服务的时间是，开机后启动用户服务，对负载均衡的状态确认正常响应之后。
+> [Note] The actual implementation timing of an instance for service is after response to load balancer's status check is normally provided, when booting is completed and user service operates properly.
 
-## 使用场景
-伸缩组根据已设置的策略自动增加或减少。但有必要时用户可以手动调整投入实例。弹性伸缩支持的调整种类如下。
+## Usage Scenario
+The scaling group executes automatic scale-out/in depending on policy settings. However, if required, user can specifically adjust running instances. Autoscale supports the following types of adjustment:
 
-- 策略调整<br>
-  按照伸缩组指定的策略来调整实例的数量。是伸缩组的基本动作。
+- Adjustment by Policy <br>
+  The number of instances can be adjusted in accordance with the policy specified in a scaling group. It is the default operation of scaling group.
 
-- 用户调整<br>
-  用户在控制台启动增加、减少策略的方式。即使不满足增加, 减少策略的启动条件也可以执行。
+- Adjustment by User <br>
+  User executes scale-out/in policy on a console. It operates even when scale-out/in policy execution conditions are not met.
 
-- 预约调整<br>
-  把实例的性能指标作为基准，在每个特定的时间调整投入实例的数量。启动时间可以设置为只发生1次或周期性反复发生。
+- Adjustment by Reservation <br>
+  The number of running instances can be adjusted at every specific timing, with performance indicators of an instance serving as criteria. Execution can be set to occur just once, or repetitively.
