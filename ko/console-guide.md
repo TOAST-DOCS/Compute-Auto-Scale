@@ -112,6 +112,7 @@
 <br/>
 
 > [주의]
+> 스케일링 그룹에 로드 밸런서를 연결하려면 Infrastructure Load Balancer ADMIN 또는 Infrastructure ADMIN 권한이 필요합니다.
 > 로드 밸런서를 변경하면 현재 인스턴스는 삭제되고 새로운 인스턴스가 생성됩니다.
 
 ### 스케일링 그룹 중지
