@@ -26,7 +26,7 @@ Shows currently-active scaling groups. On the View List screen, status of each s
 |--|--|
 | IN_PROGRESS | Action in progress |
 | COMPLETE | Action completed |
-| FAILED | Action failed<br>Contact Customer Center |
+| FAILED | Action failed |
 
 <br/>
 
