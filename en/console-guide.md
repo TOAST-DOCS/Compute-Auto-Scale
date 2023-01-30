@@ -11,9 +11,9 @@ Shows currently-active scaling groups. On the View List screen, status of each s
 - Current Instances: The number of instances currently possessed by a scaling group.
 - Instance Template: The instance template currently used by a scaling group.
 - Load Balancer: The load balancer currently used by a scaling group.
-- Status: Refers to the status of a scaling group, by which success/failure of operation according to its policy can be confirmed. The status of a scaling group consists of [Operation]_[Operation Status].
+- Status: Refers to the status of a scaling group, by which success/failure of actions according to its policy can be confirmed. The status of a scaling group consists of [Action]_[Action Status].
 
-| Operation | Description |
+| Action | Description |
 |--|--|
 | CREATE | Create a scaling group |
 | UPDATE | Change a scaling group<br>Changes to resources owned by a scaling group |
@@ -22,7 +22,7 @@ Shows currently-active scaling groups. On the View List screen, status of each s
 | RESUME | Start a scaling group |
 | DELETE | Delete a scaling group |
 
-| Operation Status | Description |
+| Action Status | Description |
 |--|--|
 | IN_PROGRESS | Action in progress |
 | COMPLETE | Action completed |
@@ -31,7 +31,7 @@ Shows currently-active scaling groups. On the View List screen, status of each s
 <br/>
 
 > [Note]
-> A scaling group in a failed operation may not operate normally.
+> A scaling group in a failed action may not operate normally.
 > Please contact the Customer Center.
 
 <br/>
