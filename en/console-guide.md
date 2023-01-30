@@ -1,8 +1,7 @@
 ## Compute > Auto Scale > Console Guide
 
 ## Instance Templates
-### Creating Instance Templates
-There must be an instance template to make a scaling group. The instance template pre-defines the component information of individual instance constituting the scaling group. See [Instance Template Console Guide](/Compute/Instance%20Template/en/console-guide/) for details.
+You can use Instance Template to create a scaling group. The instance template pre-defines the component information of individual instances comprising the scaling group. See [Instance Template Console Guide](/Compute/Instance%20Template/en/console-guide/) for details.
 
 ## Scaling Groups
 ### View List of Scaling Groups
@@ -88,27 +87,51 @@ Following items can be defined in a scaling group.
 
 <br/>
 
-> [Notes]
+> [Note]
 > With auto healing policies, the failure of each individual instance is handled by deleting the instance and replacing it with a new one.
 > If an instance's performance metrics are not collected during a continuous 3-minute period, it is determined as an error and auto healing will proceed.
 > Auto healing occurs regardless of the cooldown period.
 
 <br/>
 
-> [Notes]
+> [Note]
 > Enabling the Deploy linkage option when creating scaling groups allows users to use the Deploy service to automatically deploy their applications as new instances are created.
 > For more information, see [Deploy Guide](/Dev%20Tools/Deploy/en/console-guide/).
 > Deploy linkage feature is currently provided only in Korea (Pangyo, Pyeongchon) and Japan(Tokyo) regions as of July, 2021.
 
 
-### Stop scaling group
 
+### Change Load Balancer
+You can attach a load balancer to a scaling group, remove or replace the already attached load balancer. You must create the load balancer to connect in advance.
+
+> [Note]
+> Even if you add a listener to an already attached load balancer, instances in the current scaling group are not automatically connected to a new listner.
+> If you need to connect to the new listener, you must disconnect and reconnect to the load balancer.
+
+<br/>
+
+> [Caution]
+> To attach a load balancer to a scaling group,  Infrastructure Load Balancer ADMIN or Infrastructure ADMIN permissions are required.
+> When you change the load balancer, the existing instance is deleted and a new instance is created.
+
+### Stop Scaling Group
 Selects a desired scaling group from the scaling group list and pauses it. The paused scaling group can be restarted using the 'Start Scaling Group' button.
 
 > [Note]
 > The status of a paused scaling group is displayed in yellow.
 > All control features including controlling the number of instances, changing scaling group policy, changing load balancer, creating scheduled tasks are limited for a paused scaling group.
 > As the affiliated instances stop, statistics graphs are unavailable.
+
+### Change Scaling Group Owner
+If you select the owner you want to change, the scaling groups owned by the selected owner will be displayed. Select the scaling group whose owner you want to change to yourself.
+After the change, you can manage the scaling group with the key pair selected when changing the owner.
+
+> [Note]
+> When creating a scaling group, the owner is set to the user who requested creation.
+
+[Caution]
+> Instances created after the owner change can be accessed with the key pair selected when the owner is changed, but existing instances created before the change must still be accessed with the key pair before the change. Therefore, key pair files should be well managed at the user level.
+
 
 ### View Details and Modify
 Select a scaling group from the list of scaling groups and check its details.
