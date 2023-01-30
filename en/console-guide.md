@@ -11,16 +11,30 @@ Shows currently-active scaling groups. On the View List screen, status of each s
 - Current Instances: The number of instances currently possessed by a scaling group.
 - Instance Template: The instance template currently used by a scaling group.
 - Load Balancer: The load balancer currently used by a scaling group.
-- Status: Refers to the status of a scaling group, by which success/failure of operation according to its policy can be confirmed. Below are the list of status.
+- Status: Refers to the status of a scaling group, by which success/failure of actions according to its policy can be confirmed. The status of a scaling group consists of [Action]_[Action Status].
 
-| Status | Description |
+| Action | Description |
 |--|--|
-| CREATE_IN_PROGRESS | Creation of a scaling group is under progress |
-| CREATE_COMPLETE | Scaling group has been successfully created <br> Instances are created as many as running instances |
-| CREATE_FAILED | Creating a scaling group has failed  <br> Contact Administrator|
-| UPDATE_IN_PROGRESS | Change of a scaling group is under way |
-| UPDATE_COMPLETE | Change in resources owned by a scaling group has been made due to modification or scale-out/in policy |
-| UPDATE_FAILED | Operation for a scaling group has failed <br> Contact Administrator |
+| CREATE | Create a scaling group |
+| UPDATE | Change a scaling group<br>Changes to resources owned by a scaling group |
+| HANDOVER | Change a scaling group owner |
+| SUSPEND | Stop a scaling group |
+| RESUME | Start a scaling group |
+| DELETE | Delete a scaling group |
+
+| Action Status | Description |
+|--|--|
+| IN_PROGRESS | Action in progress |
+| COMPLETE | Action completed |
+| FAILED | Action failed |
+
+<br/>
+
+> [Note]
+> A scaling group in a failed action may not operate normally.
+> Please contact the Customer Center.
+
+<br/>
 
 ### Create Scaling Groups
 Following items can be defined in a scaling group.
@@ -98,7 +112,7 @@ Following items can be defined in a scaling group.
 > Enabling the Deploy linkage option when creating scaling groups allows users to use the Deploy service to automatically deploy their applications as new instances are created.
 > For more information, see [Deploy Guide](/Dev%20Tools/Deploy/en/console-guide/).
 > Deploy linkage feature is currently provided only in Korea (Pangyo, Pyeongchon) and Japan(Tokyo) regions as of July, 2021.
-
+> When linking with Deploy, user scripts with unicode characters do not work.
 
 
 ### Change Load Balancer
