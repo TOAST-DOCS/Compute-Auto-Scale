@@ -87,14 +87,14 @@ Following items can be defined in a scaling group.
 
 <br/>
 
-> [Notes]
+> [Note]
 > With auto healing policies, the failure of each individual instance is handled by deleting the instance and replacing it with a new one.
 > If an instance's performance metrics are not collected during a continuous 3-minute period, it is determined as an error and auto healing will proceed.
 > Auto healing occurs regardless of the cooldown period.
 
 <br/>
 
-> [Notes]
+> [Note]
 > Enabling the Deploy linkage option when creating scaling groups allows users to use the Deploy service to automatically deploy their applications as new instances are created.
 > For more information, see [Deploy Guide](/Dev%20Tools/Deploy/en/console-guide/).
 > Deploy linkage feature is currently provided only in Korea (Pangyo, Pyeongchon) and Japan(Tokyo) regions as of July, 2021.
@@ -104,7 +104,7 @@ Following items can be defined in a scaling group.
 ### Change Load Balancer
 You can attach a load balancer to a scaling group, remove or replace the already attached load balancer. You must create the load balancer to connect in advance.
 
-> [Notes]
+> [Note]
 > Even if you add a listener to an already attached load balancer, instances in the current scaling group are not automatically connected to a new listner.
 > If you need to connect to the new listener, you must disconnect and reconnect to the load balancer.
 
@@ -117,7 +117,7 @@ You can attach a load balancer to a scaling group, remove or replace the already
 ### Stop Scaling Group
 Selects a desired scaling group from the scaling group list and pauses it. The paused scaling group can be restarted using the 'Start Scaling Group' button.
 
-> [Notes]
+> [Note]
 > The status of a paused scaling group is displayed in yellow.
 > All control features including controlling the number of instances, changing scaling group policy, changing load balancer, creating scheduled tasks are limited for a paused scaling group.
 > As the affiliated instances stop, statistics graphs are unavailable.
@@ -126,7 +126,7 @@ Selects a desired scaling group from the scaling group list and pauses it. The p
 If you select the owner you want to change, the scaling groups owned by the selected owner will be displayed. Select the scaling group whose owner you want to change to yourself.
 After the change, you can manage the scaling group with the key pair selected when changing the owner.
 
-> [Notes]
+> [Note]
 > When creating a scaling group, the owner is set to the user who requested creation.
 
 [Caution]
