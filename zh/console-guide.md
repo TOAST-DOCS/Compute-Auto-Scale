@@ -1,8 +1,7 @@
 ## Compute > Auto Scale > Console Guide
 
 ## Instance Templates
-### Creating Instance Templates
-There must be an instance template to make a scaling group. The instance template pre-defines the component information of individual instance constituting the scaling group. See [Instance Template Console Guide](/Compute/Instance%20Template/en/console-guide/) for details.
+You can use Instance Template to create a scaling group. The instance template pre-defines the component information of individual instances comprising the scaling group. See [Instance Template Console Guide](/Compute/Instance%20Template/en/console-guide/) for details.
 
 ## Scaling Groups
 ### View List of Scaling Groups
@@ -12,16 +11,30 @@ Shows currently-active scaling groups. On the View List screen, status of each s
 - Current Instances: The number of instances currently possessed by a scaling group.
 - Instance Template: The instance template currently used by a scaling group.
 - Load Balancer: The load balancer currently used by a scaling group.
-- Status: Refers to the status of a scaling group, by which success/failure of operation according to its policy can be confirmed. Below are the list of status.
+- Status: Refers to the status of a scaling group, by which success/failure of actions according to its policy can be confirmed. The status of a scaling group consists of [Action]_[Action Status].
 
-| Status | Description |
+| Action | Description |
 |--|--|
-| CREATE_IN_PROGRESS | Creation of a scaling group is under progress |
-| CREATE_COMPLETE | Scaling group has been successfully created <br> Instances are created as many as running instances |
-| CREATE_FAILED | Creating a scaling group has failed  <br> Contact Administrator|
-| UPDATE_IN_PROGRESS | Change of a scaling group is under way |
-| UPDATE_COMPLETE | Change in resources owned by a scaling group has been made due to modification or scale-out/in policy |
-| UPDATE_FAILED | Operation for a scaling group has failed <br> Contact Administrator |
+| CREATE | Create a scaling group |
+| UPDATE | Change a scaling group<br>Changes to resources owned by a scaling group |
+| HANDOVER | Change a scaling group owner |
+| SUSPEND | Stop a scaling group |
+| RESUME | Start a scaling group |
+| DELETE | Delete a scaling group |
+
+| Action Status | Description |
+|--|--|
+| IN_PROGRESS | Action in progress |
+| COMPLETE | Action completed |
+| FAILED | Action failed |
+
+<br/>
+
+> [Note]
+> A scaling group in a failed action may not operate normally.
+> Please contact the Customer Center.
+
+<br/>
 
 ### Create Scaling Groups
 Following items can be defined in a scaling group.
@@ -88,27 +101,51 @@ Following items can be defined in a scaling group.
 
 <br/>
 
-> [Notes]
+> [Note]
 > With auto healing policies, the failure of each individual instance is handled by deleting the instance and replacing it with a new one.
 > If an instance's performance metrics are not collected during a continuous 3-minute period, it is determined as an error and auto healing will proceed.
 > Auto healing occurs regardless of the cooldown period.
 
 <br/>
 
-> [Notes]
+> [Note]
 > Enabling the Deploy linkage option when creating scaling groups allows users to use the Deploy service to automatically deploy their applications as new instances are created.
 > For more information, see [Deploy Guide](/Dev%20Tools/Deploy/en/console-guide/).
 > Deploy linkage feature is currently provided only in Korea (Pangyo, Pyeongchon) and Japan(Tokyo) regions as of July, 2021.
+> When linking with Deploy, user scripts with unicode characters do not work.
 
 
-### Stop scaling group
+### Change Load Balancer
+You can attach a load balancer to a scaling group, remove or replace the already attached load balancer. You must create the load balancer to connect in advance.
 
+> [Note]
+> Even if you add a listener to an already attached load balancer, instances in the current scaling group are not automatically connected to a new listner.
+> If you need to connect to the new listener, you must disconnect and reconnect to the load balancer.
+
+<br/>
+
+> [Caution]
+> To attach a load balancer to a scaling group,  Infrastructure Load Balancer ADMIN or Infrastructure ADMIN permissions are required.
+> When you change the load balancer, the existing instance is deleted and a new instance is created.
+
+### Stop Scaling Group
 Selects a desired scaling group from the scaling group list and pauses it. The paused scaling group can be restarted using the 'Start Scaling Group' button.
 
 > [Note]
 > The status of a paused scaling group is displayed in yellow.
 > All control features including controlling the number of instances, changing scaling group policy, changing load balancer, creating scheduled tasks are limited for a paused scaling group.
 > As the affiliated instances stop, statistics graphs are unavailable.
+
+### Change Scaling Group Owner
+If you select the owner you want to change, the scaling groups owned by the selected owner will be displayed. Select the scaling group whose owner you want to change to yourself.
+After the change, you can manage the scaling group with the key pair selected when changing the owner.
+
+> [Note]
+> When creating a scaling group, the owner is set to the user who requested creation.
+
+[Caution]
+> Instances created after the owner change can be accessed with the key pair selected when the owner is changed, but existing instances created before the change must still be accessed with the key pair before the change. Therefore, key pair files should be well managed at the user level.
+
 
 ### View Details and Modify
 Select a scaling group from the list of scaling groups and check its details.
@@ -118,7 +155,7 @@ Click `Edit` on details screen, to modify attributes of the scaling group. By mo
 ### View Policy and Execute
 Select a scaling group from the list of scaling groups and check its scaling policy.
 
-Click `Edit` on policy details, to modify scaling policy. Or, click `Execute` in scale up/down policy to initiate the policy by force.  
+Click `Edit` on policy details, to modify scaling policy. Or, click `Execute` in scale up/down policy to initiate the policy by force.
 
 ### View and Create Scheduled Tasks
 Select a scaling group from the list of scaling groups, and check scheduled tasks.
@@ -141,7 +178,7 @@ Items as follows are required to create a scheduled task:
 > [Note]
 > The Cron Expression is applied to show execution time/cycle of a scheduled task.
 >
-> The Cron expression is comprised of five items, each of which is divided by space characters and it means as follows:   
+> The Cron expression is comprised of five items, each of which is divided by space characters and it means as follows:
 >
 > | Item | Range Allowed | Available Special Characters |
 > |--|--|--|
@@ -180,7 +217,7 @@ Items as follows are required to create a scheduled task:
 Select a scaling group from the list and check the list of created instances.
 
 > [Caution]
-> Instances that a scaling group created are also exposed on the list of instance products. However, user cannot control them.  
+> Instances that a scaling group created are also exposed on the list of instance products. However, user cannot control them.
 
 ### View Statistical Graphs
 Select a scaling group from the list and check its statistical graph.
