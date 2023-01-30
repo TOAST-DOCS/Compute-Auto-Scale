@@ -98,6 +98,7 @@ Following items can be defined in a scaling group.
 > Enabling the Deploy linkage option when creating scaling groups allows users to use the Deploy service to automatically deploy their applications as new instances are created.
 > For more information, see [Deploy Guide](/Dev%20Tools/Deploy/en/console-guide/).
 > Deploy linkage feature is currently provided only in Korea (Pangyo, Pyeongchon) and Japan(Tokyo) regions as of July, 2021.
+> When linking with Deploy, user scripts with unicode characters do not work.
 
 
 
