@@ -143,7 +143,7 @@ After the change, you can manage the scaling group with the key pair selected wh
 > [Note]
 > When creating a scaling group, the owner is set to the user who requested creation.
 
-[Caution]
+> [Caution]
 > Instances created after the owner change can be accessed with the key pair selected when the owner is changed, but existing instances created before the change must still be accessed with the key pair before the change. Therefore, key pair files should be well managed at the user level.
 
 
