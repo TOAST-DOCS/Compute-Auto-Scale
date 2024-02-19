@@ -18,8 +18,8 @@ Conditions for a policy include instance performance indicators, reference value
 
 - CPU usage rate (%)
 - Memory usage rate (%)
-- Read/Write disk volume per minute (KB/m)
-- Network transmission volume per minute (KB/m)
+- Read/Write disk volume per second (Bytes/s)
+- Network transmission volume per second (Bytes/s)
 
 The performance indicators in the above are collected at every minute, and collected indicators are managed by each group. Auto scale products eventually check the average value of all instances within a scaling group.
 
