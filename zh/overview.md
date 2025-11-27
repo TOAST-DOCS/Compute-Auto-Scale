@@ -1,9 +1,13 @@
+<a id="compute-auto-scale-overview"></a>
 ## Compute > Auto Scale > Overview
 
 The Auto Scale service keeps monitoring instance loads to add or create instances as required. It also automatically creates a new instance when there is an error, such as disconnected network, so that the failed instance can be replaced.
 
+<a id="scaling-group"></a>
 ## Scaling Group
 Scaling group defines conditions to additionally create/delete instances, as well as activities to perform when the conditions are met. On principle, a scaling group is comprised of settings for minimum/maximum/running instances, scale out/in policy and auto healing policy.
+
+<a id="minimum-maximum-and-running-instances"></a>
 ### Minimum, Maximum, and Running Instances
 Minimum, maximum, and running instances are the parameters that must be defined in a scaling group, and each can be described as follows:
 
@@ -12,6 +16,7 @@ Minimum, maximum, and running instances are the parameters that must be defined 
 
 If the number of minimum, maximum, and running instances refers to 1, 10, and 2, respectively, two instances are created at first, depending on the running instances. Later, with scale-out/in policy, the running instances may be increased or decreased. Running instances cannot surpass a specified range beyond minimum/maximum instances.
 
+<a id="policy"></a>
 ### Policy
 A policy refers to a definition of criteria for creating or removing instances, and is composed of more than one condition, as well as operations when such conditions are met.
 Conditions for a policy include instance performance indicators, reference value, and continued time. Following are the instance performance indicators applied for a scaling group.
@@ -48,11 +53,13 @@ As such, without a cooldown period, instances may be abruptly increased or decre
 
 With auto healing policies, the failure of each individual instance is handled by deleting the instance and replacing it with a new one. If an instance's performance statistics are not collected during a continuous 3-minute period, it is determined as an error and auto healing will proceed. Auto healing occurs regardless of the cooldown period.
 
+<a id="load-balancer"></a>
 ### Load Balancer
 Specifies a load balancer to connect after an instance is created. With a scale-out policy, created instances are connected to a designated load balancer. As newly-added instances naturally share loads by load balancer, they can be immediately put into services.
 
 > [Note] The actual implementation timing of an instance for service is after response to load balancer's status check is normally provided, when booting is completed and user service operates properly.
 
+<a id="usage-scenario"></a>
 ## Usage Scenario
 The scaling group executes automatic scale-out/in depending on policy settings. However, if required, user can specifically adjust running instances. Autoscale supports the following types of adjustment:
 
