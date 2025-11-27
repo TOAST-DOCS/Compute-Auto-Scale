@@ -1,9 +1,14 @@
+<a id="compute-auto-scale-console-guide"></a>
 ## Compute > Auto Scale > Console Guide
 
+<a id="instance-templates"></a>
 ## Instance Templates
 You can use Instance Template to create a scaling group. The instance template pre-defines the component information of individual instances comprising the scaling group. See [Instance Template Console Guide](/Compute/Instance%20Template/en/console-guide/) for details.
 
+<a id="scaling-groups"></a>
 ## Scaling Groups
+
+<a id="view-list-of-scaling-groups"></a>
 ### View List of Scaling Groups
 Shows currently-active scaling groups. On the View List screen, status of each scaling group can be found.
 
@@ -36,6 +41,7 @@ Shows currently-active scaling groups. On the View List screen, status of each s
 
 <br/>
 
+<a id="create-scaling-groups"></a>
 ### Create Scaling Groups
 Following items can be defined in a scaling group.
 
@@ -115,6 +121,7 @@ Following items can be defined in a scaling group.
 > When linking with Deploy, user scripts with unicode characters do not work.
 
 
+<a id="change-load-balancer"></a>
 ### Change Load Balancer
 You can attach a load balancer to a scaling group, remove or replace the already attached load balancer. You must create the load balancer to connect in advance.
 
@@ -128,6 +135,7 @@ You can attach a load balancer to a scaling group, remove or replace the already
 > To attach a load balancer to a scaling group,  Infrastructure Load Balancer ADMIN or Infrastructure ADMIN permissions are required.
 > When you change the load balancer, the existing instance is deleted and a new instance is created.
 
+<a id="stop-scaling-group"></a>
 ### Stop Scaling Group
 Selects a desired scaling group from the scaling group list and pauses it. The paused scaling group can be restarted using the 'Start Scaling Group' button.
 
@@ -136,6 +144,7 @@ Selects a desired scaling group from the scaling group list and pauses it. The p
 > All control features including controlling the number of instances, changing scaling group policy, changing load balancer, creating scheduled tasks are limited for a paused scaling group.
 > As the affiliated instances stop, statistics graphs are unavailable.
 
+<a id="change-scaling-group-owner"></a>
 ### Change Scaling Group Owner
 If you select the owner you want to change, the scaling groups owned by the selected owner will be displayed. Select the scaling group whose owner you want to change to yourself.
 After the change, you can manage the scaling group with the key pair selected when changing the owner.
@@ -147,16 +156,19 @@ After the change, you can manage the scaling group with the key pair selected wh
 > Instances created after the owner change can be accessed with the key pair selected when the owner is changed, but existing instances created before the change must still be accessed with the key pair before the change. Therefore, key pair files should be well managed at the user level.
 
 
+<a id="view-details-and-modify"></a>
 ### View Details and Modify
 Select a scaling group from the list of scaling groups and check its details.
 
 Click `Edit` on details screen, to modify attributes of the scaling group. By modifying the scaling group, instance templates in use or minimum/maximum/running instances can be changed.
 
+<a id="view-policy-and-execute"></a>
 ### View Policy and Execute
 Select a scaling group from the list of scaling groups and check its scaling policy.
 
 Click `Edit` on policy details, to modify scaling policy. Or, click `Execute` in scale up/down policy to initiate the policy by force.
 
+<a id="view-and-create-scheduled-tasks"></a>
 ### View and Create Scheduled Tasks
 Select a scaling group from the list of scaling groups, and check scheduled tasks.
 
@@ -213,12 +225,14 @@ Items as follows are required to create a scheduled task:
 > [Caution]
 > Start time of a scheduled task can be specified only after three minutes from the current time. If a scaling group is now changing, scheduled task may be delayed.
 
+<a id="view-list-of-created-instances"></a>
 ### View List of Created Instances
 Select a scaling group from the list and check the list of created instances.
 
 > [Caution]
 > Instances that a scaling group created are also exposed on the list of instance products. However, user cannot control them.
 
+<a id="view-statistical-graphs"></a>
 ### View Statistical Graphs
 Select a scaling group from the list and check its statistical graph.
 
