@@ -1,3 +1,5 @@
+<!-- machine_translated: true -->
+
 <!-- pre-align:aligned sig=1407291b714f -->
 
 <a id="compute-auto-scale-console-guide"></a>
@@ -162,7 +164,7 @@ After the change, you can manage the scaling group with the key pair selected wh
 ### View Details and Modify { #view-details-and-modify }
 Select a scaling group from the list of scaling groups and check its details.
 
-Click `Edit` on details screen, to modify attributes of the scaling group. By modifying the scaling group, instance templates in use or minimum/maximum/running instances can be changed.
+On the details screen, select `변경` to change the minimum, maximum, and running instance count of the scaling group.
 
 <a id="view-policy-and-execute"></a>
 ### View Policy and Execute { #view-policy-and-execute }
@@ -182,12 +184,13 @@ Items as follows are required to create a scheduled task:
 | Item | Description |
 |--|--|
 | Name | Name of a scheduled task |
-| Change Items | Attributes of a scaling group to be changed by a scheduled task <br>Select one out of the minimum/maximum/running instances |
-| Value | New value of an attribute specified in change items <br>Modify the attribute selected from  `Change Items` on specified timing to this value |
 | Repeat | Whether to repeat a scheduled task<br>Select either once or Cron expression |
 | Cron Expression | Activated when Cron expression is selected for `Repeat` |
+| Base time | Specify the timezone for the start time and end time of a scheduled task |
 | Start Time | Activation time for a scheduled task <br>When `Repeat` is set once, task shall be executed on start time <br>When Cron expression is selected for `Repeat`, scheduled tasks are executed on a regular basis from the start time. |
 | End Time | Closing time for a scheduled task <br>Activated when Cron expression is selected for `Repeat` |
+| Change Items | Attributes of a scaling group to be changed by a scheduled task <br>Select one out of the minimum/maximum/running instances |
+| Value | New value of an attribute specified in change items <br>Modify the attribute selected from  `Change Items` on specified timing to this value |
 
 > [Note]
 > The Cron Expression is applied to show execution time/cycle of a scheduled task.
