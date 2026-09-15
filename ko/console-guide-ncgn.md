@@ -5,7 +5,7 @@
 
 <a id="instance-templates"></a>
 ## 인스턴스 템플릿 { #instance-templates }
-스케일링 그룹(Scaling Group)을 생성할 때 인스턴스 템플릿(Instance Template)을 이용할 수 있습니다. 인스턴스 템플릿은 스케일링 그룹을 구성하는 개별 인스턴스의 구성 요소 정보를 미리 정의합니다. 자세한 내용은 [인스턴스 템플릿 콘솔 가이드](/Compute/Instance%20Template/ko/console-guide/)를 참고하세요.
+스케일링 그룹(Scaling Group)을 생성할 때 인스턴스 템플릿(Instance Template)을 이용할 수 있습니다. 인스턴스 템플릿은 스케일링 그룹을 구성하는 개별 인스턴스의 구성 요소 정보를 미리 정의합니다. 자세한 내용은 [인스턴스 템플릿 콘솔 가이드](/Compute/Instance%20Template/ko/console-guide-ngsc/)를 참고하세요.
 
 <a id="scaling-groups"></a>
 ## 스케일링 그룹 { #scaling-groups }
