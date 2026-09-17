@@ -101,11 +101,13 @@
     <td>선택된 로드 밸런서</td>
     <td>생성된 인스턴스가 연결될 로드 밸런서</td>
   </tr>
+{% if "public" in build_flags or "gov" in build_flags %}
   <tr>
     <td>추가 정책</td>
     <td>Deploy 연계</td>
     <td>증설 시 Deploy 서비스를 이용한 자동 배포 기능 사용 여부</td>
   </tr>
+{% endif %}
 </table>
 
 <br/>
@@ -115,15 +117,19 @@
 > 개별 인스턴스의 성능 지표가 3분 동안 수집되지 않으면 장애로 판단해 자동 복구가 진행됩니다.
 > 자동 복구는 재사용 대기 시간과 상관없이 동작합니다.
 
+{% if "public" in build_flags or "gov" in build_flags %}
 <br/>
+{% endif %}
 
+{% if "public" in build_flags or "gov" in build_flags %}
 > [참고]
 > Deploy 연계를 사용하도록 설정하고 스케일링 그룹을 생성하면 증설 시 자동으로 애플리케이션을 배포하도록 Deploy 서비스에 등록할 수 있습니다.
-> 자세한 내용은 [Deploy 가이드](/Dev%20Tools/Deploy/ko/console-guide/)를 참고하세요.
+> 자세한 내용은 [Deploy 가이드](/Dev%20Tools/Deploy/ko/console-guide{% if "gov" in build_flags %}-gov{% endif %}/)를 참고하세요.
 > Deploy 연계 기능은 2021년 07월 현재 한국(판교), 한국(평촌), 일본(도쿄) 리전에서만 제공됩니다.
 > Deploy 연계 시 유니코드가 포함된 사용자 스크립트는 동작하지 않습니다.
 
 
+{% endif %}
 <a id="change-load-balancer"></a>
 ### 로드 밸런서 변경 { #change-load-balancer }
 스케일링 그룹에 로드 밸런서를 연결하거나, 연결된 로드 밸런서를 제거, 교체할 수 있습니다. 연결할 로드 밸런서는 미리 생성되어 있어야 합니다.
@@ -162,7 +168,11 @@
 ### 상세 정보 보기 및 수정 { #view-details-and-modify }
 스케일링 그룹 목록에서 원하는 스케일링 그룹을 선택하여 상세 정보를 확인합니다.
 
+{% if "public" in build_flags %}
 상세 정보 화면에서 `변경`을 선택하면 스케일링 그룹의 최소, 최대, 구동 인스턴스 수를 변경할 수 있습니다.
+{% else %}
+상세 정보 화면에서 `편집`을 선택하면 스케일링 그룹의 속성을 수정할 수 있습니다. 스케일링 그룹을 수정하여 사용 중인 인스턴스 템플릿을 변경하거나 최소, 최대, 구동 인스턴스를 변경할 수 있습니다.
+{% endif %}
 
 <a id="view-policy-and-execute"></a>
 ### 정책 보기 및 실행 { #view-policy-and-execute }
