@@ -79,7 +79,7 @@ Following items can be defined in a scaling group.
   <tr>
     <td rowspan="4">Scale-out/in policy</td>
     <td>Condition</td>
-    <td>Initiating conditions for scale-out/in policy <br> Specify performance indicators, reference values, and continued time</tr>
+    <td>Initiating conditions for scale-out/in policy <br> Specify performance metrics, reference values, and continued time</tr>
   <tr>
     <td>Conditional Operator</td>
     <td>Operators to be applied between initiating conditions <br>With <b>and</b>, policy is initiated when all conditions are satisfied <br>With <b>or</b>, policy is initiated when only one of the conditions is met</td>
@@ -102,11 +102,13 @@ Following items can be defined in a scaling group.
     <td>Selected Load Balancer </td>
     <td>The load balancer that a created instance is to be connected with.  </td>
   </tr>
+{% if "public" in build_flags or "gov" in build_flags %}
   <tr>
     <td>Additional policy</td>
     <td>Deploy linkage</td>
     <td>Whether to use the auto distribution feature using deploy service when scale-out</td>
   </tr>
+{% endif %}
 </table>
 
 <br/>
@@ -116,14 +118,18 @@ Following items can be defined in a scaling group.
 > If an instance's performance metrics are not collected during a continuous 3-minute period, it is determined as an error and auto healing will proceed.
 > Auto healing occurs regardless of the cooldown period.
 
+{% if "public" in build_flags or "gov" in build_flags %}
 <br/>
+{% endif %}
 
+{% if "public" in build_flags or "gov" in build_flags %}
 > [Note]
 > Enabling the Deploy linkage option when creating scaling groups allows users to use the Deploy service to automatically deploy their applications as new instances are created.
-> For more information, see [Deploy Guide](/Dev%20Tools/Deploy/en/console-guide/).
-> Deploy linkage feature is currently provided only in Korea (Pangyo, Pyeongchon) and Japan(Tokyo) regions as of July, 2021.
+> For more information, see [Deploy Guide](/Dev%20Tools/Deploy/en/console-guide{% if "gov" in build_flags %}-gov{% endif %}/).
+> Deploy linkage feature is currently provided only in Korea (Pangyo), Korea (Pyeongchon), and Japan (Tokyo) regions as of July 2021.
 > When linking with Deploy, user scripts with unicode characters do not work.
 
+{% endif %}
 
 <a id="change-load-balancer"></a>
 ### Change Load Balancer { #change-load-balancer }
@@ -164,7 +170,11 @@ After the change, you can manage the scaling group with the key pair selected wh
 ### View Details and Modify { #view-details-and-modify }
 Select a scaling group from the list of scaling groups and check its details.
 
-On the details screen, select `변경` to change the minimum, maximum, and running instance count of the scaling group.
+{% if "public" in build_flags %}
+On the Details screen, choose `Change` to modify the minimum, maximum, and running instance counts of the scaling group.
+{% else %}
+On the Details screen, choose `Edit` to modify the properties of the scaling group. You can modify the scaling group to change the Instance Template in use, or change the minimum, maximum, and running instances.
+{% endif %}
 
 <a id="view-policy-and-execute"></a>
 ### View Policy and Execute { #view-policy-and-execute }
